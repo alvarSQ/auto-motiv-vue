@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import TheWite from '@/components/TheWite.vue';
+import TheWhite from '@/components/TheWhite.vue';
+import TheBlue from '../components/TheBlue.vue';
 
 
 </script>
 
 <template>
     <div>
-        <TheWite />
+        <TheWhite v-if="0" />
+        <TheBlue v-else />
     </div>
 </template>
 

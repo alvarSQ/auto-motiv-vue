@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import LogoSVG from '@/components/logoSVG.vue';
-import { table } from 'console';
 
 const isPasswordVisible = ref(false);
 
@@ -14,10 +13,6 @@ const selectedValueLogin = ref('');
 const togglePasswordVisibility = () => {
   isPasswordVisible.value = !isPasswordVisible.value;
 };
-
-// const showDropdown = () => {
-//   isDropdownVisible.value = true;
-// };
 
 const hideDropdown = () => {
   isDropdownVisibleTable.value = false;
@@ -178,6 +173,12 @@ $border-color: rgba(213, 213, 214, 1);
 $focus-border: rgba(156, 190, 255, 1);
 $transition: all 0.2s ease-in-out;
 
+.logo-svg {
+  position: absolute;
+  top: 45px;
+  right: 50px;
+}
+
 .input-wrapper {
   position: relative;
 }
@@ -211,17 +212,12 @@ $transition: all 0.2s ease-in-out;
   }
 }
 
-.flex-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(320px, 90%, 460px);
+  width: clamp(360px, 90%, 460px);
   font: 400 1rem Inter;
 }
 
@@ -264,12 +260,6 @@ $transition: all 0.2s ease-in-out;
       border-color: $focus-border;
     }
   }
-}
-
-.flex-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .checkbox-wrapper {
