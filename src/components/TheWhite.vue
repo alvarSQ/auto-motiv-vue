@@ -13,11 +13,13 @@ const isDropdownVisibleTable = ref(false);
 const isDropdownVisibleLogin = ref(false);
 const rememberAccount = ref(false);
 
-const userInputAuth = async () => {  
+const userInputAuth = async () => {
   await authStore.authUser('');
   if (userInfo.value.login && rememberAccount.value) {
-    dropdownItems.value.tabel.push(userInfo.value.tabel)
-    dropdownItems.value.login.push(userInfo.value.login)
+    dropdownItems.value.push({
+      tabel: userInfo.value.tabel,
+      login: userInfo.value.login,
+    });
   }
 };
 
@@ -36,6 +38,10 @@ const selectItem = (type: string, item: string) => {
 
 <template>
   <LogoSVG />
+  <div class="back flex-line-start" @click="$emit('newAkk')">
+    <div class="arrow"></div>
+    <span>Назад</span>
+  </div>
   <div class="container">
     <div class="title">Вход в ERP-систему</div>
     <form class="text-field" @submit.prevent="userInputAuth">
@@ -54,13 +60,16 @@ const selectItem = (type: string, item: string) => {
           @blur="hideDropdown"
         />
 
-        <ul class="dropdown" v-if="isDropdownVisibleTable && dropdownItems.tabel[0]">
+        <ul
+          class="dropdown"
+          v-if="isDropdownVisibleTable && dropdownItems.length > 0"
+        >
           <li
-            v-for="(item, index) in dropdownItems.tabel"
+            v-for="(user, index) in dropdownItems"
             :key="index"
-            @mousedown="selectItem('table', item)"
+            @mousedown="selectItem('table', user.tabel)"
           >
-            {{ item }}
+            {{ user.tabel }}
           </li>
         </ul>
       </div>
@@ -80,21 +89,29 @@ const selectItem = (type: string, item: string) => {
           @blur="hideDropdown"
         />
 
-        <ul class="dropdown" v-if="isDropdownVisibleLogin && dropdownItems.login[0]">
+        <ul
+          class="dropdown"
+          v-if="isDropdownVisibleLogin && dropdownItems.length > 0"
+        >
           <li
-            v-for="(item, index) in dropdownItems.login"
+            v-for="(user, index) in dropdownItems"
             :key="index"
-            @mousedown="selectItem('logo', item)"
+            @mousedown="selectItem('logo', user.login)"
           >
-            {{ item }}
+            {{ user.login }}
           </li>
         </ul>
       </div>
 
-     <InputPassword />
+      <InputPassword />
 
       <div class="checkbox-wrapper">
-        <input class="text-field__checkbox" type="checkbox" id="checkbox" v-model="rememberAccount" />
+        <input
+          class="text-field__checkbox"
+          type="checkbox"
+          id="checkbox"
+          v-model="rememberAccount"
+        />
         <label class="text-field__label__checkbox" for="checkbox">
           <span class="custom-checkbox"></span>
           Запомнить аккаунт
@@ -103,9 +120,42 @@ const selectItem = (type: string, item: string) => {
       <button class="btn">Войти</button>
     </form>
   </div>
+  <div class="nav-circle flex-line">
+    <div class="circle circle__grey" @click="$emit('newAkk')"></div>
+    <div class="circle circle__blue"></div>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.arrow {
+  width: 11px;
+  height: 11px;
+  border: solid black;
+  border-radius: 1px;
+  border-width: 2px 0 0 2px;
+  transform: rotate(-45deg);
+  margin-right: 8px;
+}
+
+.back {
+  position: absolute;
+  top: 59px;
+  left: 63px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(248, 249, 253, 1);
+  }
+  &:active {
+    background-color: rgba(236, 243, 255, 1);
+  }
+  span {
+    font: 400 20px Inter;
+    margin-top: -1px;
+  }
+}
+
 .logo-svg {
   position: absolute;
   top: 45px;
@@ -161,7 +211,6 @@ const selectItem = (type: string, item: string) => {
   color: #000;
 }
 
-
 .checkbox-wrapper {
   display: flex;
   align-items: center;
@@ -212,6 +261,4 @@ const selectItem = (type: string, item: string) => {
   position: relative;
   transition: all 0.2s ease-in-out;
 }
-
-
 </style>

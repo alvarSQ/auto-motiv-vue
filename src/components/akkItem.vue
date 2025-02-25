@@ -1,26 +1,48 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import InputPassword from './inputPassword.vue';
+
 
 const props = defineProps<{
   login: string;
   table: string;
   img: string;
+  isActive: boolean;
 }>();
+
+const emit = defineEmits<{
+  (e: 'set-active'): void;
+}>();
+
+const inputPass = ref('');
+
+// Предотвращаем всплытие события клика внутри элемента
+const handleClick = (event: MouseEvent) => {
+  event.stopPropagation();
+  emit('set-active');
+};
 </script>
 
 <template>
-  <li class="akk-item akk-item__pass">
+  <li
+    class="akk-item"
+    :class="{ 'akk-item__pass': props.isActive }"
+    @click="handleClick"
+  >
     <div class="flex-line-start">
-      <div class="avatar avatar__img"></div>
+      <div
+        class="avatar avatar__img"
+        :style="`background-image: url(/src/assets/img/${props.img})`"
+      ></div>
       <div class="flex-column">
-        <div class="login">{{ login }}</div>
-        <div class="table">{{ table }}</div>
+        <div class="login">{{ props.login }}</div>
+        <div class="table">{{ props.table }}</div>
       </div>
     </div>
-      <form class="text-field top-line" @submit.prevent="" v-if="0">
-        <InputPassword />
-        <button class="btn">Войти</button>
-      </form>
+    <form class="text-field top-line" @submit.prevent="" v-if="props.isActive" @click.stop>
+      <InputPassword v-model="inputPass" />
+      <button class="btn">Войти</button>
+    </form>
   </li>
 </template>
 
@@ -45,11 +67,10 @@ const props = defineProps<{
 }
 
 .akk-item__pass {
-//   height: 288px;
+  height: 288px;
 }
 
 .avatar__img {
-  background-image: url('@/assets/img/ava.png');
   background-position: bottom -15px right 0;
   background-size: 65px;
 }

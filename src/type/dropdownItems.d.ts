@@ -1,4 +1,4 @@
 declare interface IDropdownItems {
-  login: string[];
-  tabel: string[];
+  login: string;
+  tabel: string;
 }

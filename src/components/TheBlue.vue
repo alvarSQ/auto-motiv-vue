@@ -1,8 +1,45 @@
 <script setup lang="ts">
-// import { ref } from 'vue';
 import LogoSVG from '@/components/logoSVG.vue';
 import EmojiSVG from '@/components/emojiSVG.vue';
 import AkkItem from '@/components/akkItem.vue';
+import { useAuthStore } from '../stores/auth';
+import { storeToRefs } from 'pinia';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+
+const { dropdownItems, userInput } = storeToRefs(useAuthStore());
+
+const activeIndex = ref(-1);
+
+// Открываем элемент по клику
+const setActive = (index: number) => {
+  activeIndex.value = index;
+};
+
+// Закрываем элемент при клике вне
+const handleClickOutside = (event: MouseEvent) => {
+  const akkBlock = document.querySelector('.akk-block');
+  if (akkBlock && !akkBlock.contains(event.target as Node)) {
+    activeIndex.value = -1;
+  }
+  userInput.value.user.password = '';
+};
+
+const filteredDropdownItems = computed(() => {
+  if (activeIndex.value === -1) {
+    return dropdownItems.value;
+  }
+  return [dropdownItems.value[activeIndex.value]];
+});
+
+const isAnyActive = computed(() => activeIndex.value !== -1);
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <template>
@@ -13,27 +50,46 @@ import AkkItem from '@/components/akkItem.vue';
       <div class="hello">C возвращением!</div>
       <EmojiSVG />
     </div>
-    <div class="akk-item" style="margin-bottom: 20px">
+    <div class="akk-item" style="margin-bottom: 20px" @click="$emit('newAkk')">
       <div class="flex-line-start">
-      <div class="avatar cross"></div>
-      <div class="table">Добавить аккаунт</div>
+        <div class="avatar cross"></div>
+        <div class="table">Добавить аккаунт</div>
       </div>
     </div>
 
-    <ul class="akk-block flex-column" style="gap: 15px">
-      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
-      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
-      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
-      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
-      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
-    
-    
-      
-    </ul>
+    <transition-group
+      name="fade"
+      tag="ul"
+      class="akk-block flex-column"
+      style="gap: 15px"
+    >
+      <AkkItem
+        v-for="(akk, index) in filteredDropdownItems"
+        :key="index"
+        :table="akk.tabel"
+        :login="akk.login"
+        :img="'ava.png'"
+        :is-active="isAnyActive"
+        @set-active="setActive(dropdownItems.indexOf(akk))"
+      />
+    </transition-group>
+  </div>
+  <div class="nav-circle flex-line">
+    <div class="circle circle__blue"></div>
+    <div class="circle circle__grey" @click="$emit('newAkk')"></div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .akk-block {
   height: 355px;
   overflow-y: auto;

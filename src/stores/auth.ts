@@ -22,10 +22,7 @@ export const useAuthStore = defineStore(
     });
 
     // Данные для dropdown
-    const dropdownItems = reactive<IDropdownItems>({
-      tabel: [],
-      login: [],
-    });
+    const dropdownItems = ref<IDropdownItems[]>([]);
 
     const authUser = async (type?: string) => {
       isLoading.value = true;
@@ -36,11 +33,18 @@ export const useAuthStore = defineStore(
         if (response.data) {
           token.value = (response.data as IRespUserInfo).user.token;
           userInfo.value = (response.data as IRespUserInfo).user;
+          userInput.user = {
+            login: '',
+            tabel: '',
+            password: '',
+          };
         }
       } catch (err) {
+        token.value = '';
+        userInfo.value = {} as IUserInfo;
         console.log((err as AxiosError).response?.data);
       } finally {
-        isLoading.value = false;
+        isLoading.value = false;        
       }
     };
 
