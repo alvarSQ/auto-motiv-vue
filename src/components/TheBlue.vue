@@ -68,7 +68,7 @@ onUnmounted(() => {
       <AkkItem
         v-for="(akk, index) in filteredDropdownItems"
         :key="index"
-        :table="akk.tabel"
+        :tabel="akk.tabel"
         :login="akk.login"
         :img="'ava.png'"
         :is-active="isAnyActive"

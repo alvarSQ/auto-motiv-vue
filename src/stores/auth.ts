@@ -33,6 +33,11 @@ export const useAuthStore = defineStore(
         if (response.data) {
           token.value = (response.data as IRespUserInfo).user.token;
           userInfo.value = (response.data as IRespUserInfo).user;
+          type
+            ? console.log(
+                `${userInput.user.login}, поздравляю с успешным входом в систему!`
+              )
+            : console.log(`${userInput.user.login}, вы зарегистрированы!`);
           userInput.user = {
             login: '',
             tabel: '',
