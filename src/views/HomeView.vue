@@ -7,7 +7,7 @@ import TheBlue from '../components/TheBlue.vue';
 
 <template>
     <div>
-        <TheWhite v-if="0" />
+        <TheWhite v-if="1" />
         <TheBlue v-else />
     </div>
 </template>

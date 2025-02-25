@@ -2,64 +2,33 @@
 // import { ref } from 'vue';
 import LogoSVG from '@/components/logoSVG.vue';
 import EmojiSVG from '@/components/emojiSVG.vue';
+import AkkItem from '@/components/akkItem.vue';
 </script>
 
 <template>
   <div class="blue">
     <LogoSVG :isBlue="true" />
     <div class="title">Вход в ERP-систему</div>
-    <div class="flex-line">
-      <div class="helo">C возвращением!</div>
+    <div class="flex-line flex-line__hello">
+      <div class="hello">C возвращением!</div>
       <EmojiSVG />
     </div>
     <div class="akk-item" style="margin-bottom: 20px">
+      <div class="flex-line-start">
       <div class="avatar cross"></div>
       <div class="table">Добавить аккаунт</div>
+      </div>
     </div>
 
     <ul class="akk-block flex-column" style="gap: 15px">
-      <li class="akk-item">
-        <div class="avatar avatar__img"></div>
-        <div class="flex-column">
-          <div class="logo">Иванова И.И.</div>
-          <div class="table">001</div>
-        </div>
-      </li>
-      <li class="akk-item">
-        <div class="avatar avatar__img"></div>
-        <div class="flex-column">
-          <div class="logo">Иванова И.И.</div>
-          <div class="table">001</div>
-        </div>
-      </li>
-      <li class="akk-item">
-        <div class="avatar avatar__img"></div>
-        <div class="flex-column">
-          <div class="logo">Иванова И.И.</div>
-          <div class="table">001</div>
-        </div>
-      </li>
-      <li class="akk-item">
-        <div class="avatar avatar__img"></div>
-        <div class="flex-column">
-          <div class="logo">Иванова И.И.</div>
-          <div class="table">001</div>
-        </div>
-      </li>
-      <li class="akk-item">
-        <div class="avatar avatar__img"></div>
-        <div class="flex-column">
-          <div class="logo">Иванова И.И.</div>
-          <div class="table">001</div>
-        </div>
-      </li>
-      <li class="akk-item">
-        <div class="avatar avatar__img"></div>
-        <div class="flex-column">
-          <div class="logo">Иванова И.И.</div>
-          <div class="table">001</div>
-        </div>
-      </li>
+      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
+      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
+      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
+      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
+      <AkkItem :table="'001'"  :login="'Иванова И.И.'" :img="'img'"/>
+    
+    
+      
     </ul>
   </div>
 </template>
@@ -74,8 +43,6 @@ import EmojiSVG from '@/components/emojiSVG.vue';
 
 .cross {
   position: relative;
-  width: 22px;
-  height: 22px;
 
   &::before,
   &::after {
@@ -97,46 +64,6 @@ import EmojiSVG from '@/components/emojiSVG.vue';
   }
 }
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.logo {
-  font-size: 18px;
-}
-
-.table {
-  color: rgb(103, 112, 116);
-}
-
-.avatar {
-  width: 60px;
-  height: 60px;
-  margin-right: 15px;
-  background-color: white;
-  border-radius: 50%;
-}
-
-.avatar__img {
-  background-image: url('@/assets/img/ava.png');
-  background-position: bottom -15px right 0;
-  background-size: 65px;
-}
-
-.akk-item {
-  display: flex;
-  align-items: center;
-  width: 469px;
-  height: 90px;
-  padding: 15px 25px;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(30px);
-  cursor: pointer;
-}
-
 .title {
   margin-top: 23px;
   font-size: 24px;
@@ -146,14 +73,14 @@ import EmojiSVG from '@/components/emojiSVG.vue';
   color: white;
 }
 
-.helo {
+.hello {
   font-size: 40px;
   font-weight: 600;
   line-height: 48px;
   color: white;
 }
 
-.flex-line {
+.flex-line__hello {
   margin-top: 25px;
   margin-bottom: 40px;
   width: 413px;
