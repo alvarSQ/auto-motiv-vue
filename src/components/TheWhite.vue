@@ -34,11 +34,13 @@ const selectItem = (type: string, item: string) => {
     : (userInput.value.user.login = item);
   hideDropdown();
 };
+
+const emit = defineEmits(['newAkk']);
 </script>
 
 <template>
   <LogoSVG />
-  <div class="back flex-line-start" @click="$emit('newAkk')">
+  <div class="back flex-line-start" @click="$emit('newAkk')" v-if="userInfo.login">
     <div class="arrow"></div>
     <span>Назад</span>
   </div>
@@ -120,7 +122,7 @@ const selectItem = (type: string, item: string) => {
       <button class="btn">Войти</button>
     </form>
   </div>
-  <div class="nav-circle flex-line">
+  <div class="nav-circle flex-line" v-if="userInfo.login">
     <div class="circle circle__grey" @click="$emit('newAkk')"></div>
     <div class="circle circle__blue"></div>
   </div>

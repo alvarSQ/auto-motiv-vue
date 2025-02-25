@@ -33,6 +33,8 @@ const filteredDropdownItems = computed(() => {
 
 const isAnyActive = computed(() => activeIndex.value !== -1);
 
+const emit = defineEmits(['newAkk']);
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside);
 });
