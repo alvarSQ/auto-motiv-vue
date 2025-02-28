@@ -6,7 +6,7 @@
 ## Front
 Использовать стек: Vue3 + TypeScript.
 
-Верстка страниц в соответствии с дизайном в [фигме] (https://www.figma.com/design/GenX6JHyNhWu4gFnBQg4Dx/Untitled?node-id=0-1&p=f&t=CQJCQnYVnCrRk2ID-0)
+Верстка страниц в соответствии с дизайном в [фигме](https://www.figma.com/design/GenX6JHyNhWu4gFnBQg4Dx/Untitled?node-id=0-1&p=f&t=CQJCQnYVnCrRk2ID-0)
 
 Основная функциональность в работе авторизации:
 
