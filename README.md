@@ -1,5 +1,30 @@
 # Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Задание 
+Написать Fullstack приложение, которое будет реализовывать авторизацию пользователей в приложении.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Front
+Использовать стек: Vue3 + TypeScript.
+
+Верстка страниц в соответствии с дизайном в [фигме] (https://www.figma.com/design/GenX6JHyNhWu4gFnBQg4Dx/Untitled?node-id=0-1&p=f&t=CQJCQnYVnCrRk2ID-0)
+
+Основная функциональность в работе авторизации:
+
+Нужно реализовать приложение которое будет получать пользователей и автоматизировать их в системе, если tabel, login и password были введены верно.
+
+В зависимости от правильности введенного сообщения - выводить положительное или отрицательное сообщение и авторизовывать пользователя сохраняя в браузере токен авторизации.
+
+## Back
+Использовать стек: TypeScript + Sequelize + Postgres + NestJs.
+
+Нужно реализовать модуль users CRUD.
+
+Авторизацию JWT.
+
+В модели должны быть минимум полей: id, login, tabel, password
+
+Нужно заполнить таблицу с пользователями users через seeds - это делается через sequelize.
+
+[Backand](https://github.com/alvarSQ/NestJS_Auth).
+
+
